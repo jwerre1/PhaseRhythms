@@ -1,2 +1,2 @@
-# PhaseRythms
+# PhaseRhythms
 Console app to check rhythms for phase shift redundancies
