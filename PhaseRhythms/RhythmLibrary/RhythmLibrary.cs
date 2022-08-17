@@ -18,14 +18,8 @@ namespace RhythmLibrary
             }
             */
         }
-
-        public bool matches(string str, bool checkInitial)
+        private bool matches(string str)
         {
-            // if applicable, check if input matches original
-            if (checkInitial && originalInput == str)
-            {
-                return true;
-            }
             // split into into char and make into linked list
             char[] beats = str.ToCharArray();
             LinkedList<char> beatList = new LinkedList<char>(beats);
@@ -44,6 +38,10 @@ namespace RhythmLibrary
                 }
             }
             return false;
+        }
+        public bool repetitionCheck()
+        {
+            return matches(originalInput);
         }
     }
 }
