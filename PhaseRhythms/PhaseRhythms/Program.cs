@@ -22,6 +22,8 @@ namespace PhaseRhythms
             Rhythm original = new Rhythm(rhythmInput);
             bool repetition = original.repetitionCheck();
             Console.WriteLine(repetition);
+            string baseRhythm = original.createMeasure(rhythmInput);
+            Console.WriteLine(baseRhythm);
         }
     }
 }
