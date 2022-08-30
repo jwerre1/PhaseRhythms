@@ -8,15 +8,6 @@ namespace RhythmLibrary
         public Rhythm(string str)
         {
             originalInput = str;
-            /*
-            char[] charBeats = str.ToCharArray();
-            int[] beats = new int[charBeats.Length];
-            for (int i = 0; i < charBeats.Length; i++)
-            {
-                beats[i] = int.Parse(charBeats[i].ToString());
-                Console.WriteLine(beats[i]);
-            }
-            */
         }
         private bool matches(string str)
         {
@@ -30,7 +21,6 @@ namespace RhythmLibrary
                 beatList.RemoveFirst();
                 // join into a string
                 string check = String.Join("", beatList);
-                Console.WriteLine(check);
                 // check if string matches original
                 if (originalInput == check)
                 {
@@ -39,6 +29,45 @@ namespace RhythmLibrary
             }
             return false;
         }
+
+        public string createMeasure(string str)
+        {
+            // split into into char and make into linked list
+            char[] beats = str.ToCharArray();
+            if (beats.Length == 0) return "";
+
+            string notatedString = "";
+            char prevValue = '\0';
+            bool insideBracket = false;
+            for (var i = 0; i < beats.Length; i++)
+            {
+                if (beats[i].Equals('0'))
+                {
+                    if (prevValue.Equals('1') && insideBracket)
+                    {
+                        notatedString += "]";
+                        insideBracket = false;
+                    }
+                    notatedString += " r8"; // eighth-note rest
+                }
+                else if (beats[i].Equals('1'))
+                {
+                    if (i == beats.Length - 1 && insideBracket)
+                    {
+                        notatedString += "]";
+                    }
+                    else if (prevValue.Equals('1') && !insideBracket)
+                    {
+                        notatedString += "[";
+                        insideBracket = true;
+                    } // Ending in "01" does not require brackets around the "1"
+                    notatedString += " gui8"; // eigth-note beat
+                }
+                prevValue = beats[i];
+            }
+            return notatedString;
+        }
+
         public bool repetitionCheck()
         {
             return matches(originalInput);
